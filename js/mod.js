@@ -1,7 +1,7 @@
 let modInfo = {
 	name: "Prestige Tree Rewritten",
 	id: "ptr",
-	author: "Jacorb",
+	author: "Jacorb (and Onesmartshark)",
 	pointsName: "points",
 	discordName: "PT Rewritten Server",
 	discordLink: "https://discord.gg/TFCHJJT",
@@ -14,9 +14,9 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.3",
+	num: "1.3.1",
 	patch: 1,
-	name: "The Expansion Update",
+	name: "Nerfer 1",
 }
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
@@ -43,6 +43,7 @@ function getPointGen() {
 	if (hasUpgrade("p", 12)) gain = gain.times(upgradeEffect("p", 12));
 	if (hasUpgrade("p", 13)) gain = gain.times(upgradeEffect("p", 13));
 	if (hasUpgrade("p", 22)) gain = gain.times(upgradeEffect("p", 22));
+	if (hasUpgrade("p", 51)) gain = gain.times(10);
 	if (hasUpgrade("b", 14) && player.i.buyables[12].gte(1)) gain = gain.times(upgradeEffect("b", 11))
 	if (((Array.isArray(tmp.ma.mastered))?tmp.ma.mastered.includes("e"):false) && hasUpgrade("e", 12)) gain = gain.times(upgradeEffect("e", 12))
 	if (hasAchievement("a", 21)) gain = gain.times(1.1);
