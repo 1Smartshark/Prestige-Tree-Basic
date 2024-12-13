@@ -14,9 +14,9 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.3.1",
-	patch: 1,
-	name: "Nerfer 1",
+	num: "1.3.2",
+	patch: 2,
+	name: "Nerf 2 - B/G",
 }
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.

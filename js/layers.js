@@ -13,6 +13,7 @@ addLayer("p", {
             mult = new Decimal(1)
 			if (hasAchievement("a", 13)) mult = mult.times(1.1);
 			if (hasAchievement("a", 32)) mult = mult.times(2);
+			if (hasUpgrade("p", 52)) mult = mult.times(10);
 			if (hasUpgrade("p", 21)) mult = mult.times(((Array.isArray(tmp.ma.mastered))?tmp.ma.mastered.includes(this.layer):false)?1e50:1.8);
 			if (hasUpgrade("p", 23)) mult = mult.times(upgradeEffect("p", 23));
 			if (hasUpgrade("p", 41)) mult = mult.times(upgradeEffect("p", 41));
@@ -139,6 +140,12 @@ addLayer("p", {
 				description: "x10 Points.",
 				cost() { return 1 },
 				unlocked() { return hasUpgrade("p", 11) },
+			},
+			52: {
+				title: "Difficulty Nerfer II",
+				description: "x10 Prestige Points.",
+				cost() { return 5 },
+				unlocked() { return hasUpgrade("p", 51) },
 			},
 			21: {
 				title: "More Prestige",
@@ -378,13 +385,13 @@ addLayer("b", {
 		increaseUnlockOrder: ["g"],
 		milestones: {
 			0: {
-				requirementDescription: "8 Boosters",
-				done() { return player.b.best.gte(8) || hasAchievement("a", 41) || hasAchievement("a", 71) },
+				requirementDescription: "4 Boosters",
+				done() { return player.b.best.gte(4) || hasAchievement("a", 41) || hasAchievement("a", 71) },
 				effectDescription: "Keep Prestige Upgrades on reset.",
 			},
 			1: {
-				requirementDescription: "15 Boosters",
-				done() { return player.b.best.gte(15) || hasAchievement("a", 71) },
+				requirementDescription: "7 Boosters",
+				done() { return player.b.best.gte(7) || hasAchievement("a", 71) },
 				effectDescription: "You can buy max Boosters.",
 			},
 		},
@@ -672,18 +679,18 @@ addLayer("g", {
 		increaseUnlockOrder: ["b"],
 		milestones: {
 			0: {
-				requirementDescription: "8 Generators",
-				done() { return player.g.best.gte(8) || hasAchievement("a", 41) || hasAchievement("a", 71) },
+				requirementDescription: "4 Generators",
+				done() { return player.g.best.gte(4) || hasAchievement("a", 41) || hasAchievement("a", 71) },
 				effectDescription: "Keep Prestige Upgrades on reset.",
 			},
 			1: {
-				requirementDescription: "10 Generators",
-				done() { return player.g.best.gte(10) || hasAchievement("a", 71) },
+				requirementDescription: "6 Generators",
+				done() { return player.g.best.gte(6) || hasAchievement("a", 71) },
 				effectDescription: "You gain 100% of Prestige Point gain every second.",
 			},
 			2: {
-				requirementDescription: "15 Generators",
-				done() { return player.g.best.gte(15) || hasAchievement("a", 71) },
+				requirementDescription: "7 Generators",
+				done() { return player.g.best.gte(7) || hasAchievement("a", 71) },
 				effectDescription: "You can buy max Generators.",
 			},
 		},
