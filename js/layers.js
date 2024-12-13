@@ -103,7 +103,7 @@ addLayer("p", {
 					return f;
 				},
 			},
-			15: {
+			13: {
 				title: "Self-Synergy",
 				description: "Points boost their own generation.",
 				cost() { return tmp.h.costMult11.times(((Array.isArray(tmp.ma.mastered))?tmp.ma.mastered.includes(this.layer):false)?50:5).pow(tmp.h.costExp11) },
@@ -135,7 +135,7 @@ addLayer("p", {
 				pseudoCan() { return player.p.points.gte("1e168000")&&inChallenge("h", 42) },
 				unlocked() { return player.p.pseudoUpgs.includes(Number(this.id)) },
 			},
-			13: {
+			15: {
 				title: "Difficulty Nerfer I",
 				description: "x10 Points.",
 				cost() { return 1 },
