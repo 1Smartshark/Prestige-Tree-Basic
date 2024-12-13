@@ -138,7 +138,8 @@ addLayer("p", {
 			15: {
 				title: "Difficulty Nerfer I",
 				description: "x10 Points.",
-				cost() { return tmp.h.costMult11.times(((Array.isArray(tmp.ma.mastered))?tmp.ma.mastered.includes(this.layer):false)?2:1).pow(tmp.h.costExp11) },
+				cost() { return 1 },
+				unlocked() { return hasUpgrade("p", 11) },
 			},
 			21: {
 				title: "More Prestige",
