@@ -397,7 +397,7 @@ addLayer("b", {
 			},
 		},
 		upgrades: {
-			rows: 3,
+			rows: 4,
 			cols: 5,
 			11: {
 				title: "BP Combo",
