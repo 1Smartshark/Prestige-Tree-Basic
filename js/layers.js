@@ -13,6 +13,7 @@ addLayer("p", {
             mult = new Decimal(1)
 			if (hasAchievement("a", 13)) mult = mult.times(1.1);
 			if (hasAchievement("a", 32)) mult = mult.times(2);
+			if (hasUpgrade("p", 15)) mult = mult.times(10);
 			if (hasUpgrade("p", 21)) mult = mult.times(((Array.isArray(tmp.ma.mastered))?tmp.ma.mastered.includes(this.layer):false)?1e50:1.8);
 			if (hasUpgrade("p", 23)) mult = mult.times(upgradeEffect("p", 23));
 			if (hasUpgrade("p", 41)) mult = mult.times(upgradeEffect("p", 41));
@@ -133,6 +134,11 @@ addLayer("p", {
 				pseudoReq: 'Req: 1e168,000 Prestige Points in the "Productionless" Hindrance',
 				pseudoCan() { return player.p.points.gte("1e168000")&&inChallenge("h", 42) },
 				unlocked() { return player.p.pseudoUpgs.includes(Number(this.id)) },
+			},
+			15: {
+				title: "Difficulty Nerfer I",
+				description: "x10 Points.",
+				cost() { return tmp.h.costMult11.times(((Array.isArray(tmp.ma.mastered))?tmp.ma.mastered.includes(this.layer):false)?2:1).pow(tmp.h.costExp11) },
 			},
 			21: {
 				title: "More Prestige",
