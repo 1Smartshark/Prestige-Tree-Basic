@@ -135,10 +135,11 @@ addLayer("p", {
 				pseudoCan() { return player.p.points.gte("1e168000")&&inChallenge("h", 42) },
 				unlocked() { return player.p.pseudoUpgs.includes(Number(this.id)) },
 			},
-			15: {
+			51: {
 				title: "Difficulty Nerfer I",
 				description: "x10 Points.",
 				cost() { return 1 },
+				unlocked() { return hasUpgrade("p", 11) },
 			},
 			21: {
 				title: "More Prestige",
