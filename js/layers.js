@@ -14,6 +14,7 @@ addLayer("p", {
 			if (hasAchievement("a", 13)) mult = mult.times(1.1);
 			if (hasAchievement("a", 32)) mult = mult.times(2);
 			if (hasUpgrade("p", 52)) mult = mult.times(10);
+			if (hasUpgrade("b", 42)) mult = mult.times(10);
 			if (hasUpgrade("p", 21)) mult = mult.times(((Array.isArray(tmp.ma.mastered))?tmp.ma.mastered.includes(this.layer):false)?1e50:1.8);
 			if (hasUpgrade("p", 23)) mult = mult.times(upgradeEffect("p", 23));
 			if (hasUpgrade("p", 41)) mult = mult.times(upgradeEffect("p", 41));
@@ -136,13 +137,13 @@ addLayer("p", {
 				unlocked() { return player.p.pseudoUpgs.includes(Number(this.id)) },
 			},
 			51: {
-				title: "Difficulty Nerfer I",
+				title: "Simplifier A-1 I",
 				description: "x10 Points.",
 				cost() { return 1 },
 				unlocked() { return hasUpgrade("p", 11) },
 			},
 			52: {
-				title: "Difficulty Nerfer II",
+				title: "Simplifier A-1 II",
 				description: "x10 Prestige Points.",
 				cost() { return 5 },
 				unlocked() { return hasUpgrade("p", 51) },
@@ -397,7 +398,7 @@ addLayer("b", {
 		},
 		upgrades: {
 			rows: 3,
-			cols: 4,
+			cols: 5,
 			11: {
 				title: "BP Combo",
 				description: "Best Boosters boost Prestige Point gain.",
@@ -558,6 +559,18 @@ addLayer("b", {
 				effect() { return player.i.points.plus(1).root(4) },
 				effectDisplay() { return "^"+format(tmp[this.layer].upgrades[this.id].effect) },
 				formula: "(x+1)^0.25",
+			},
+			41: {
+				title: "Simplifier A-2 I",
+				description: "x10 Points.",
+				cost() { return 6 },
+				unlocked() { return hasUpgrade("b", 11) },
+			},
+			42: {
+				title: "Simplifier A-2 II",
+				description: "x10 Prestige.",
+				cost() { return 10 },
+				unlocked() { return hasUpgrade("b", 41) },
 			},
 		},
 })
