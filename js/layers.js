@@ -56,8 +56,8 @@ addLayer("p", {
 			first: 0,
 		}},
 		upgrades: {
-			rows: 4,
-			cols: 4,
+			rows: 5,
+			cols: 5,
 			11: {
 				title: "Begin",
 				description: "Generate 1 Point every second.",
@@ -139,7 +139,6 @@ addLayer("p", {
 				title: "Difficulty Nerfer I",
 				description: "x10 Points.",
 				cost() { return 1 },
-				unlocked() { return hasUpgrade("p", 11) },
 			},
 			21: {
 				title: "More Prestige",
