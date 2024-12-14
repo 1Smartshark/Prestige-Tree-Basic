@@ -13,8 +13,6 @@ addLayer("p", {
             mult = new Decimal(1)
 			if (hasAchievement("a", 13)) mult = mult.times(1.1);
 			if (hasAchievement("a", 32)) mult = mult.times(2);
-			if (hasUpgrade("p", 52)) mult = mult.times(10);
-			if (hasUpgrade("b", 42)) mult = mult.times(10);
 			if (hasUpgrade("p", 21)) mult = mult.times(((Array.isArray(tmp.ma.mastered))?tmp.ma.mastered.includes(this.layer):false)?1e50:1.8);
 			if (hasUpgrade("p", 23)) mult = mult.times(upgradeEffect("p", 23));
 			if (hasUpgrade("p", 41)) mult = mult.times(upgradeEffect("p", 41));
@@ -30,6 +28,8 @@ addLayer("p", {
         gainExp() { // Calculate the exponent on main currency from bonuses
             let exp = new Decimal(1)
 			if (hasUpgrade("p", 31)) exp = exp.times(1.05);
+			if (hasUpgrade("p", 52)) exp = exp.times(3);
+			if (hasUpgrade("b", 42)) exp = exp.times(3);
 			return exp;
         },
         row: 0, // Row the layer is in on the tree (0 is the first row)
@@ -138,15 +138,21 @@ addLayer("p", {
 			},
 			51: {
 				title: "Simplifier A-1 I",
-				description: "x10 Points.",
+				description: "*10 Points.",
 				cost() { return 1 },
 				unlocked() { return hasUpgrade("p", 11) },
 			},
 			52: {
 				title: "Simplifier A-1 II",
-				description: "x10 Prestige Points.",
+				description: "^3 Prestige Points.",
 				cost() { return 5 },
 				unlocked() { return hasUpgrade("p", 51) },
+			},
+			53: {
+				title: "Simplifier A-1 III",
+				description: "^3 Enhance Points.",
+				cost() { return new Decimal("1e300") },
+				unlocked() { return hasUpgrade("e", 11) && hasUpgrade("p", 52) },
 			},
 			21: {
 				title: "More Prestige",
@@ -562,15 +568,21 @@ addLayer("b", {
 			},
 			41: {
 				title: "Simplifier A-2 I",
-				description: "x10 Points.",
+				description: "*10 Points.",
 				cost() { return 6 },
 				unlocked() { return hasUpgrade("b", 11) },
 			},
 			42: {
 				title: "Simplifier A-2 II",
-				description: "x10 Prestige.",
+				description: "^3 Prestige.",
 				cost() { return 10 },
 				unlocked() { return hasUpgrade("b", 41) },
+			},
+			43: {
+				title: "Simplifier A-2 III",
+				description: "^3 Enhance Points.",
+				cost() { return 30 },
+				unlocked() { return hasUpgrade("e", 11) && hasUpgrade("b", 42) },
 			},
 		},
 })
@@ -708,7 +720,7 @@ addLayer("g", {
 			},
 		},
 		upgrades: {
-			rows: 3,
+			rows: 4,
 			cols: 5,
 			11: {
 				title: "GP Combo",
@@ -916,6 +928,12 @@ addLayer("g", {
 				effect() { return player.g.power.plus(1).log10().plus(1).sqrt() },
 				effectDisplay() { return format(tmp[this.layer].upgrades[this.id].effect)+"x" },
 				formula: "sqrt(log(x+1)+1)",
+			},
+			41: {
+				title: "Simplifier B-2 I",
+				description() { return "^3 Quarks" },
+				cost() { return new Decimal(1) },
+				unlocked() { return hasUpgrade("g", 11) },
 			},
 		},
 })
@@ -1351,7 +1369,10 @@ addLayer("e", {
             return mult
         },
         gainExp() { // Calculate the exponent on main currency from bonuses
-            return new Decimal(1)
+			exp = new Decimal(1)
+			if (hasUpgrade("p", 53)) exp = exp.times(3);
+			if (hasUpgrade("b", 43)) exp = exp.times(3);
+            return exp
         },
 		passiveGeneration() { return (hasMilestone("q", 1)&&player.ma.current!="e")?1:0 },
 		update(diff) {
@@ -2547,6 +2568,14 @@ addLayer("sb", {
 			first: 0,
 			auto: false,
 		}},
+		milestones: {
+			0: {
+				requirementDescription: "14 Super-Boosters or Solarity Unlocked",
+				done() { return player.sb.best.gte(14) || player.o.unlocked == true },
+				unlocked() {return true},
+				effectDescription: "^3 Solarity.",
+			},
+		}
 })
 
 addLayer("sg", {
@@ -2972,7 +3001,9 @@ addLayer("q", {
             return mult
         },
         gainExp() { // Calculate the exponent on main currency from bonuses
-            return new Decimal(1)
+			exp = new Decimal(1)
+			if (hasUpgrade("g", 41)) exp = exp.times(3);
+            return exp
         },
         row: 3, // Row the layer is in on the tree (0 is the first row)
         hotkeys: [
@@ -3592,7 +3623,9 @@ addLayer("o", {
             return mult
         },
         gainExp() { // Calculate the exponent on main currency from bonuses
-            return new Decimal(1);
+            exp = new Decimal(1)
+			if (hasMilestone("sb", 0)) exp = exp.times(3);
+            return exp
         },
         row: 3, // Row the layer is in on the tree (0 is the first row)
         hotkeys: [
@@ -4598,7 +4631,7 @@ addLayer("ba", {
 		noNerfs() {
 			return ((Array.isArray(tmp.ma.mastered))?tmp.ma.mastered.includes(this.layer):false)
 		},
-		posNerf() { return tmp.ba.noNerfs?new Decimal(1):(player.ba.pos.plus(1).sqrt().pow(inChallenge("h", 41)?100:1)) },
+		posNerf() { return 1e-30 },
 		negGainMult() {
 			let mult = new Decimal(1);
 			if (hasUpgrade("ba", 24)) mult = mult.times(upgradeEffect("ba", 24).neg);
@@ -4610,7 +4643,7 @@ addLayer("ba", {
 			eff = softcap("negBuff", eff);
 			return eff;
 		},
-		negNerf() { return tmp.ba.noNerfs?new Decimal(1):(player.ba.neg.plus(1).log10().plus(1).sqrt().pow(inChallenge("h", 41)?100:1).div(hasUpgrade("ba", 14)?2:1).max(1)) },
+		negNerf() { return 1e-30 },
 		tabFormat: ["main-display",
 			"prestige-button",
 			"resource-display",
