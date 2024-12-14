@@ -1,7 +1,7 @@
-# The-Modding-Tree
-
-A modified version of The Prestige Tree that is much easier to mod. It still requires programming knowledge, but it's mostly pretty easy things and copy/pasting.
-
-[Look here for a tutorial on getting started with modding with TMT](docs/getting-started.md)
-
-You can look in the [documentation](docs/!general-info.md) for more information on how it all works, or look at the code in layers.js to see what it all looks like.
+# The Prestige Tree - BASIC
+Current differences:
+Prestige - 3 new upgrades (x10 Points, ^3 prestige, ^3 enhance)
+Boosters - 3 new upgrades (x10 Points, ^3 prestige, ^3 enhance), Milestone cost lowered
+Generators - 1 new upgrade (^3 quirks), Milestone cost lowered
+Super Boosters - 1 new milestone (^3 Solarity)
+Balance - Nerfs now divide positivity by 1e-30 always (leading to bigger buffs)
